@@ -2,15 +2,15 @@
 
 本项目主要内容分为以下三部分：
 
-- [Loo.py编程系统的实现方式以及多面体模型]()
+- [Loo.py编程系统的实现方式以及多面体模型](https://github.com/01-Loopy/loo.py-intro/blob/master/introduction.md)
 
 对于Loo.py的介绍分析；关于多面体模型的简介以及例子
 
-- [如何使用Loo.py]()
+- [如何使用Loo.py](https://github.com/01-Loopy/loo.py-intro/blob/master/how-to.md)
 
 使用Loo.py实现的测试样例以及和其他语言的对比
 
-- [TVM中的应用场景以及加速比]()
+- [TVM中的应用场景以及加速比](https://github.com/01-Loopy/loo.py-intro/blob/master/TVM-analysis.md)
 
 Loo.py在TVM中的应用；Loo.py和其他语言的实现加速比分析
 
