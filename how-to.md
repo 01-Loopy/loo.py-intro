@@ -293,6 +293,48 @@ Loo.py支持原子操作，通过声明变量以及指令的原子标签即可�
 
 ## 性能分析
 
+Loo.py提供了统计分析运算操作、访存以及同步的工具，例如在以下内核中：
+
+```python
+knl = lp.make_kernel(
+     "[n,m,l] -> {[i,k,j]: 0<=i<n and 0<=k<m and 0<=j<l}",
+     """
+     c[i, j, k] = a[i,j,k]*b[i,j,k]/3.0+a[i,j,k]
+     e[i, k] = g[i,k]*(2+h[i,k+1])
+     """)
+knl = lp.add_and_infer_dtypes(knl,
+     dict(a=np.float32, b=np.float32, g=np.float64, h=np.float64))
+op_map = lp.get_op_map(knl)
+print(lp.stringify_stats_mapping(op_map))
+```
+
+将会打印浮点运算、整数运算的规模，提供比时间复杂度更为具体的信息：
+
+```
+Op(np:dtype('float32'), add) : [m, l, n] -> { m * l * n : m > 0 and l > 0 and n > 0 }
+Op(np:dtype('float32'), div) : [m, l, n] -> { m * l * n : m > 0 and l > 0 and n > 0 }
+Op(np:dtype('float32'), mul) : [m, l, n] -> { m * l * n : m > 0 and l > 0 and n > 0 }
+Op(np:dtype('float64'), add) : [m, l, n] -> { m * n : m > 0 and l > 0 and n > 0 }
+Op(np:dtype('float64'), mul) : [m, l, n] -> { m * n : m > 0 and l > 0 and n > 0 }
+Op(np:dtype('int32'), add) : [m, l, n] -> { m * n : m > 0 and l > 0 and n > 0 }
+```
+
+配合`eval_with_dict(param_dict)`则可以进一步分析得到操作的数量。对于内存访问以及同步屏障的获取方式类似：
+
+```python
+mem_map = lp.get_mem_access_map(knl)
+sync_map = lp.get_synchronization_map(knl)
+```
+
+```
+MemAccess(global, np:dtype('float32'), 1, load, a) : [m, l, n] -> { ... }
+MemAccess(global, np:dtype('float32'), 1, load, b) : [m, l, n] -> { ... }
+MemAccess(global, np:dtype('float32'), 1, store, c) : [m, l, n] -> { ... }
+MemAccess(global, np:dtype('float64'), 1, load, g) : [m, l, n] -> { ... }
+MemAccess(global, np:dtype('float64'), 1, load, h) : [m, l, n] -> { ... }
+MemAccess(global, np:dtype('float64'), 1, store, e) : [m, l, n] -> { ... }
+```
+
 ## 相关链接
 
 [GitHub repository](https://github.com/01-Loopy/loo.py-intro)
