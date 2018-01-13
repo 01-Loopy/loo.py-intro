@@ -1,4 +1,4 @@
-# TVM 简介
+## TVM:An End to End IR Stack for Deploying Deep Learning Workloads on Hardware Platforms
 
 ## 1.overview
 有了 TVM，业界与学界开发者们可以快速、轻松地在各个系统（包括手机、嵌入式设备与低功耗芯片）上部署深度学习应用程序，同时无须担心资源与速度的限制。*"TVM 作为神经网络和硬件后端之间的共同层，消除了为每类设备或服务器优化各自基础架构的需要。"* TVM 项目负责人陈天奇表示，*"我们的框架允许开发人员快速、轻松地部署和优化大量硬件设备上的深度学习系统。"*
@@ -62,3 +62,4 @@ TVM 始于华盛顿大学 Paul G. Allen 计算机科学与工程学院的研究�
 
 ## 相关链接
 [http://tvmlang.org/2017/08/17/tvm-release-announcement.html](http://tvmlang.org/2017/08/17/tvm-release-announcement.html)
+[http://tvmlang.org/2017/08/22/Optimize-Deep-Learning-GPU-Operators-with-TVM-A-Depthwise-Convolution-Example.html](http://tvmlang.org/2017/08/22/Optimize-Deep-Learning-GPU-Operators-with-TVM-A-Depthwise-Convolution-Example.html)
